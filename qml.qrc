@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>WallpaperType.qml</file>
+        <file>HomePage.qml</file>
+        <file>ImageListView.qml</file>
+        <file>NetworkInstance.js</file>
+        <file>ImageViewer.qml</file>
+        <file>SideBar.qml</file>
+        <file>CategoryList.qml</file>
+        <file>WallpaperList.qml</file>
+    </qresource>
+</RCC>
