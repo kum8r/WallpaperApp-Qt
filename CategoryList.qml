@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import org.kde.kirigami 2.9 as Kirigami
 
 Rectangle {
     function onCategoryClicked(index) {}
@@ -6,6 +7,7 @@ Rectangle {
 
     width: parent.width
     height: parent.height
+    color: Kirigami.Theme.backgroundColor
 
     GridView {
 
@@ -17,18 +19,23 @@ Rectangle {
         delegate: Rectangle {
             width: 100
             height: 50
-            color: "green"
+            border.color: Kirigami.Theme.highlightColor
+            radius: 5
+            color: Kirigami.Theme.backgroundColor
 
-            Text {
+            Kirigami.Heading {
+                level: 4
                 text: modelData.name
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
             }
 
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
                     onCategoryClicked(index)
+
                 }
             }
         }

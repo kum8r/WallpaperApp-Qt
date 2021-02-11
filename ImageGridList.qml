@@ -1,8 +1,9 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.4
 import "NetworkInstance.js" as API
+import org.kde.kirigami 2.9 as Kirigami
 
-Item {
+Rectangle {
     property var wallpapertype
     property var url_thumbs: []
     property var id
@@ -10,6 +11,7 @@ Item {
 
     width: parent.width
     height: parent.height
+    color: Kirigami.Theme.backgroundColor
 
     Row {
         width: parent.width
@@ -37,8 +39,9 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-
-                        //                    onImagesClicked(index)
+                        pageLoader.setSource("ImageViewer.qml", {
+                                                 "image": model.url_image
+                                             })
                     }
                 }
             }

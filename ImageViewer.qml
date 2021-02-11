@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.15
+import "NetworkInstance.js" as API
 
 Rectangle {
     property var image
@@ -15,11 +16,10 @@ Rectangle {
     }
 
     ToolButton {
-        text: "d"
+        text: "D"
         anchors.left: parent.left
         onClicked: {
-            imagedownloader.setImageUrl(image)
-            imagedownloader.download()
+            API.downloadFile(image)
         }
     }
 
@@ -28,7 +28,7 @@ Rectangle {
         text: "x"
         anchors.right: parent.right
         onClicked: {
-            pageLoader.setSource("HomePage.qml")
+            pageLoader.source = ""
         }
     }
 }

@@ -1,7 +1,8 @@
 import QtQuick 2.0
+import org.kde.kirigami 2.9 as Kirigami
 
-Item {
-
+Rectangle {
+    color: Kirigami.Theme.backgroundColor
     height: parent.height
     width: 210
 
@@ -9,6 +10,7 @@ Item {
         height: parent.height
 
         ListView {
+            id: sideBarList
             width: 200
             height: parent.height
 
@@ -17,10 +19,12 @@ Item {
 
                 Rectangle {
                     id: wrapper
-                    width: 180
+                    width: 200
                     height: 50
+                    color: Kirigami.Theme.backgroundColor
 
-                    Text {
+                    Kirigami.Heading {
+                        level: 4
                         id: listInfo
                         text: model.name
                         anchors.centerIn: parent
@@ -36,14 +40,15 @@ Item {
                         anchors.fill: parent
 
                         onClicked: {
-                            console.log(model.name)
                             onItemClicked(model.name)
                         }
                     }
                 }
             }
 
-            model: WallpaperType {}
+            model: ImagesTypes {
+                id: imagelist
+            }
             delegate: listDelegate
         }
 
@@ -54,25 +59,30 @@ Item {
         }
     }
 
+    function addItem(n) {
+        imagelist.append({
+                             "name": name
+                         })
+        console.log(n)
+    }
+
     function onItemClicked(name) {
-        console.log(name)
         if (name === "Home") {
             pageLoader.setSource("HomePage.qml")
         } else if (name === "Newest Wallpapers") {
-
-            pageLoader.setSource("WallpaperList.qml", {
+            pageLoader.setSource("ImageGridList.qml", {
                                      "wallpapertype": "newest"
                                  })
         } else if (name === "Featured Wallpapers") {
-
-            pageLoader.setSource("WallpaperList.qml", {
+            pageLoader.setSource("ImageGridList.qml", {
                                      "wallpapertype": "featured"
                                  })
         } else if (name === "Popular Wallpapers") {
-
-            pageLoader.setSource("WallpaperList.qml", {
+            pageLoader.setSource("ImageGridList.qml", {
                                      "wallpapertype": "popular"
                                  })
+        } else if (name === "Category") {
+            pageLoader.setSource("CategoryGridList.qml")
         }
     }
 }

@@ -1,6 +1,8 @@
 import QtQuick 2.0
 
 ListModel {
+    id: imagesTypesList
+
     ListElement {
         name: "Home"
     }
@@ -15,5 +17,9 @@ ListModel {
 
     ListElement {
         name: "Popular Wallpapers"
+    }
+
+    ListElement {
+        name: "Category"
     }
 }

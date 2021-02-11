@@ -26,8 +26,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
-find_package(Qt6 COMPONENTS Network REQUIRED)
-
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Network REQUIRED)
+find_package(KF5Kirigami2)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -59,4 +59,5 @@ target_link_libraries(WallpaperApp
 target_link_libraries(WallpaperApp PRIVATE Qt${QT_VERSION_MAJOR}::Network)
 
 find_package(Qt6 COMPONENTS Network REQUIRED)
-target_link_libraries(WallpaperApp PRIVATE Qt6::Network)
+target_link_libraries(WallpaperApp PRIVATE Qt${QT_VERSION_MAJOR}::Network)
+target_link_libraries(${PROJECT_NAME} PRIVATE KF5::Kirigami2)

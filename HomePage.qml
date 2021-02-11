@@ -1,12 +1,15 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.15
 import "NetworkInstance.js" as API
+import org.kde.kirigami 2.9 as Kirigami
 
 Rectangle {
+    property var thumbs: []
+
     id: mainContainer
     width: parent.width
     height: parent.height
-    property var thumbs: []
+    color: Kirigami.Theme.backgroundColor
 
     Row {
         width: parent.width
@@ -17,7 +20,6 @@ Rectangle {
         }
 
         ScrollView {
-
             width: parent.width
             height: parent.height
             contentWidth: imageListLayout.width // The important part
@@ -29,7 +31,8 @@ Rectangle {
                 width: mainContainer.width - sidebar.width
                 height: mainContainer.height
 
-                Text {
+                Kirigami.Heading {
+                    level: 3
                     text: qsTr("Newest Images")
                 }
 
@@ -41,9 +44,15 @@ Rectangle {
                                                  "image": list[index].url_image
                                              })
                     }
+                    function onLoadMoreClicked() {
+                        pageLoader.setSource("ImageGridList.qml", {
+                                                 "wallpapertype": "newest"
+                                             })
+                    }
                 }
 
-                Text {
+                Kirigami.Heading {
+                    level: 3
                     text: qsTr("Featured Images")
                 }
 
@@ -55,9 +64,15 @@ Rectangle {
                                                  "image": list[index].url_image
                                              })
                     }
+                    function onLoadMoreClicked() {
+                        pageLoader.setSource("ImageGridList.qml", {
+                                                 "wallpapertype": "featured"
+                                             })
+                    }
                 }
 
-                Text {
+                Kirigami.Heading {
+                    level: 3
                     text: qsTr("Popular Images")
                 }
 
@@ -69,9 +84,15 @@ Rectangle {
                                                  "image": list[index].url_image
                                              })
                     }
+                    function onLoadMoreClicked() {
+                        pageLoader.setSource("ImageGridList.qml", {
+                                                 "wallpapertype": "popular"
+                                             })
+                    }
                 }
 
-                Text {
+                Kirigami.Heading {
+                    level: 3
                     text: qsTr("Categories")
                 }
 
@@ -79,13 +100,18 @@ Rectangle {
                     property var list: API.getCategoryList()
                     categoryList: list
                     function onCategoryClicked(index) {
-                        pageLoader.setSource("WallpaperList.qml", {
+                        pageLoader.setSource("ImageGridList.qml", {
                                                  "id": list[index].id,
                                                  "wallpapertype": "category"
                                              })
+
+                        sidebar.addItem("Sub Category")
                     }
                 }
             }
         }
+    }
+    Component.onCompleted: {
+        API.getSubCategoryList(10)
     }
 }

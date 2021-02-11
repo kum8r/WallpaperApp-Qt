@@ -42,3 +42,19 @@ var getCategoryWallpaper = function (id, pageNo) {
     var json_obj = JSON.parse(res)
     return json_obj.wallpapers
 }
+
+var getSubCategoryList = function (id) {
+    var res = getUrl(website_url + "&method=sub_category_list&id=" + id)
+    var json_obj = JSON.parse(res)
+    return json_obj["sub-categories"]
+}
+
+function downloadFile(url) {
+    const http = require('http'); // or 'https' for https:// URLs
+    const fs = require('fs');
+
+    const file = fs.createWriteStream("file.jpg");
+    const request = http.get(url, function(response) {
+      response.pipe(file);
+    });
+}
