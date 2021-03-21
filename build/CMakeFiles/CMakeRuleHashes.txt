@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-4161c7b8fc5e7286e9bc3b7237361603 CMakeFiles/WallpaperApp_autogen
-565090e58d2569f286b5ae8537eb4303 WallpaperApp_autogen/EWIEGA46WW/qrc_qml.cpp

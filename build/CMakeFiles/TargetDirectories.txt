@@ -1,4 +1,0 @@
-/home/blank/Projects/WallpaperApp-Qt/build/CMakeFiles/edit_cache.dir
-/home/blank/Projects/WallpaperApp-Qt/build/CMakeFiles/rebuild_cache.dir
-/home/blank/Projects/WallpaperApp-Qt/build/CMakeFiles/WallpaperApp.dir
-/home/blank/Projects/WallpaperApp-Qt/build/CMakeFiles/WallpaperApp_autogen.dir

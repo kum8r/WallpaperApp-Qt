@@ -1,34 +1,41 @@
 import QtQuick 2.0
-import QtQuick.Controls 2.15
-import "NetworkInstance.js" as API
+import org.kde.kirigami 2.4 as Kirigami
+import com.blackgrain.qml.quickdownload 1.0
+import QtQuick.Controls 2.12
+import Qt.labs.platform 1.1
 
-Rectangle {
-    property var image
-    width: parent.width
-    height: parent.height
+Kirigami.Page {
+    property var imageSource
 
     Image {
-        source: image
-        sourceSize.height: height
-        sourceSize.width: width
-        width: parent.width
-        height: parent.height
+        id: img
+        anchors.fill: parent
+        fillMode: Image.PreserveAspectFit
+        horizontalAlignment: Image.AlignHCenter
+        verticalAlignment: Image.AlignVCenter
+        source: imageSource
     }
 
-    ToolButton {
-        text: "D"
-        anchors.left: parent.left
+    Button {
+        text: "Download"
         onClicked: {
-            API.downloadFile(image)
+            download.start(imageSource)
         }
     }
 
-    ToolButton {
-        id: closeBtn
-        text: "x"
-        anchors.right: parent.right
-        onClicked: {
-            pageLoader.source = ""
-        }
+    Component.onCompleted: {
+        console.log()
+    }
+
+    Download {
+        id: download
+        destination: StandardPaths.writableLocation(
+                         StandardPaths.DownloadLocation) + "/ImageViewer -"
+                     + new Date().toLocaleTimeString(Qt.locale(
+                                                         "en_US")) + ".jpg"
+        onStarted: console.log('Started download', url)
+        onError: console.error("error", errorString, url)
+        onProgressChanged: console.log(url, 'progress:', progress)
+        onFinished: console.info(url, 'done')
     }
 }

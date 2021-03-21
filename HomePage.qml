@@ -1,117 +1,118 @@
 import QtQuick 2.0
-import QtQuick.Controls 2.15
+import org.kde.kirigami 2.4 as Kirigami
+import QtQuick.Layouts 1.15
 import "NetworkInstance.js" as API
-import org.kde.kirigami 2.9 as Kirigami
+import QtQuick.Controls 2.4
 
-Rectangle {
-    property var thumbs: []
+Kirigami.ScrollablePage {
 
-    id: mainContainer
-    width: parent.width
-    height: parent.height
-    color: Kirigami.Theme.backgroundColor
+    title: "Home"
+    anchors.fill: parent
+    clip: true
+    contentWidth: column.width
+    contentHeight: column.height
 
-    Row {
+    ScrollBar.vertical: ScrollBar {}
+
+    ColumnLayout {
+        id: column
         width: parent.width
-        height: parent.width
 
-        SideBar {
-            id: sidebar
+        Kirigami.Heading {
+            text: "Popular Wallpapers"
+            level: 3
         }
 
-        ScrollView {
-            width: parent.width
-            height: parent.height
-            contentWidth: imageListLayout.width // The important part
-            contentHeight: imageListLayout.height // Same
-            clip: true // Prevent drawing column outside the scrollview borders
+        ImageList {
+            property var list: API.getPopularImagesThumb(1)
+            url_thumbs: list
+            Layout.fillWidth: true
 
-            Column {
-                id: imageListLayout
-                width: mainContainer.width - sidebar.width
-                height: mainContainer.height
+            footer: Rectangle {
+                width: 150
+                height: 100
+                color: Kirigami.Theme.backgroundColor
 
                 Kirigami.Heading {
-                    level: 3
-                    text: qsTr("Newest Images")
+                    level: 5
+                    text: "Load More"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.fill: parent
                 }
 
-                ImageListView {
-                    property var list: API.getNewestImagesThumb(1)
-                    url_thumbs: list
-                    function onImagesClicked(index) {
-                        pageLoader.setSource("ImageViewer.qml", {
-                                                 "image": list[index].url_image
-                                             })
-                    }
-                    function onLoadMoreClicked() {
-                        pageLoader.setSource("ImageGridList.qml", {
-                                                 "wallpapertype": "newest"
-                                             })
-                    }
-                }
-
-                Kirigami.Heading {
-                    level: 3
-                    text: qsTr("Featured Images")
-                }
-
-                ImageListView {
-                    property var list: API.getFeaturedImagesThumb(1)
-                    url_thumbs: list
-                    function onImagesClicked(index) {
-                        pageLoader.setSource("ImageViewer.qml", {
-                                                 "image": list[index].url_image
-                                             })
-                    }
-                    function onLoadMoreClicked() {
-                        pageLoader.setSource("ImageGridList.qml", {
-                                                 "wallpapertype": "featured"
-                                             })
-                    }
-                }
-
-                Kirigami.Heading {
-                    level: 3
-                    text: qsTr("Popular Images")
-                }
-
-                ImageListView {
-                    property var list: API.getPopularImagesThumb(1)
-                    url_thumbs: list
-                    function onImagesClicked(index) {
-                        pageLoader.setSource("ImageViewer.qml", {
-                                                 "image": list[index].url_image
-                                             })
-                    }
-                    function onLoadMoreClicked() {
-                        pageLoader.setSource("ImageGridList.qml", {
-                                                 "wallpapertype": "popular"
-                                             })
-                    }
-                }
-
-                Kirigami.Heading {
-                    level: 3
-                    text: qsTr("Categories")
-                }
-
-                CategoryList {
-                    property var list: API.getCategoryList()
-                    categoryList: list
-                    function onCategoryClicked(index) {
-                        pageLoader.setSource("ImageGridList.qml", {
-                                                 "id": list[index].id,
-                                                 "wallpapertype": "category"
-                                             })
-
-                        sidebar.addItem("Sub Category")
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        stack.currentIndex = 3
                     }
                 }
             }
         }
-    }
-    Component.onCompleted: {
-        API.getSubCategoryList(10)
+
+        Kirigami.Heading {
+            text: "Newest Wallpapers"
+            level: 3
+        }
+
+        ImageList {
+            property var list: API.getNewestImagesThumb(1)
+            url_thumbs: list
+            Layout.fillWidth: true
+
+            footer: Rectangle {
+                width: 150
+                height: 100
+                color: Kirigami.Theme.backgroundColor
+
+                Kirigami.Heading {
+                    level: 5
+                    text: "Load More"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.fill: parent
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        stack.currentIndex = 2
+                    }
+                }
+            }
+        }
+
+        Kirigami.Heading {
+            text: "Featured Wallpapers"
+            level: 3
+        }
+
+        ImageList {
+            property var list: API.getFeaturedImagesThumb(1)
+            url_thumbs: list
+            Layout.fillWidth: true
+
+            footer: Rectangle {
+                width: 150
+                height: 100
+                color: Kirigami.Theme.backgroundColor
+
+                Kirigami.Heading {
+                    level: 5
+                    text: "Load More"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.fill: parent
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        stack.currentIndex = 1
+                    }
+                }
+            }
+        }
+
     }
 }

@@ -36,25 +36,18 @@ var getCategoryList = function () {
     return json_obj.categories
 }
 
+var getSubCategoryList = function (id) {
+    var res = getUrl(website_url + "&method=sub_category_list&id=" + id)
+    console.log(website_url + "&method=sub_category_list&id=" + id)
+    var json_obj = JSON.parse(res)
+    console.log("somting")
+    console.log(json_obj)
+    return json_obj["sub-categories"]
+}
+
 var getCategoryWallpaper = function (id, pageNo) {
     var res = getUrl(
                 website_url + "&method=category&id=" + id + "&page=" + pageNo)
     var json_obj = JSON.parse(res)
     return json_obj.wallpapers
-}
-
-var getSubCategoryList = function (id) {
-    var res = getUrl(website_url + "&method=sub_category_list&id=" + id)
-    var json_obj = JSON.parse(res)
-    return json_obj["sub-categories"]
-}
-
-function downloadFile(url) {
-    const http = require('http'); // or 'https' for https:// URLs
-    const fs = require('fs');
-
-    const file = fs.createWriteStream("file.jpg");
-    const request = http.get(url, function(response) {
-      response.pipe(file);
-    });
 }
