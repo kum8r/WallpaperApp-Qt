@@ -10,8 +10,8 @@
 *
 ### ScreenShot
 
-    * ![ScreenShot 1](./Screenshot/Screenshot_1.png)
-    * ![ScreenShot 2](./Screenshot/Screenshot_2.png)
-    * ![ScreenShot 3](./Screenshot/Screenshot_3.png)
-    * ![ScreenShot 4](./Screenshot/Screenshot_4.png)
-    * ![ScreenShot 5](./Screenshot/Screenshot_5.png)
+    * ![alt ScreenShot 1](./Screenshot/Screenshot_1.png)
+    * ![alt ScreenShot 2](./Screenshot/Screenshot_2.png)
+    * ![alt ScreenShot 3](./Screenshot/Screenshot_3.png)
+    * ![alt ScreenShot 4](./Screenshot/Screenshot_4.png)
+    * ![alt ScreenShot 5](./Screenshot/Screenshot_5.png)
