@@ -31,7 +31,7 @@ GridView {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                applicationWindow().pageStack.push(
+                applicationWindow().pageStack.layers.push(
                             "qrc:/CategoryImageList.qml", {
                                 "categoryid": modelData.id
                             })

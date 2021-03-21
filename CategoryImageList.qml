@@ -15,7 +15,7 @@ Kirigami.Page {
 
             width: parent.width
             height: parent.height * .30
-    //        height: model.length * 50
+            //        height: model.length * 50
             cellHeight: 110
             cellWidth: 110
 
@@ -46,22 +46,18 @@ Kirigami.Page {
                 }
             }
 
-
             model: categoryList
-
 
             Component.onCompleted: {
                 categoryList = API.getSubCategoryList(categoryid)
             }
         }
 
-                        ImageGridList {
-                            width: parent.width
-                            height: parent.height
-                            categoryId: categoryid
-                            image_type: "category"
-                        }
-            }
-
-
+        ImageGridList {
+            width: parent.width
+            height: parent.height
+            categoryId: categoryid
+            image_type: "category"
+        }
+    }
 }
