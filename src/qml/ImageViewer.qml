@@ -24,7 +24,12 @@ Kirigami.Page {
     }
 
     Component.onCompleted: {
-        console.log()
+        sideBar.drawerOpen = false
+    }
+
+    onBackRequested: {
+        console.log("back requested")
+        sideBar.drawerOpen  =true
     }
 
     Download {
