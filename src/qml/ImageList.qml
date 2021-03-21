@@ -16,7 +16,7 @@ ListView {
             anchors.fill: parent
             onClicked: {
                 applicationWindow().pageStack.layers.push(
-                            "qrc:/ImageViewer.qml", {
+                            "qrc:/src/qml/ImageViewer.qml", {
                                 "imageSource": modelData.url_image
                             })
             }

@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>CategoryImageList.qml</file>
-        <file>CategoryList.qml</file>
-        <file>HomePage.qml</file>
-        <file>ImageGridList.qml</file>
-        <file>ImageList.qml</file>
-        <file>NetworkInstance.js</file>
-        <file>ImageViewer.qml</file>
+        <file>src/qml/CategoryImageList.qml</file>
+        <file>src/qml/CategoryList.qml</file>
+        <file>src/qml/HomePage.qml</file>
+        <file>src/qml/ImageGridList.qml</file>
+        <file>src/qml/ImageList.qml</file>
+        <file>src/qml/ImageViewer.qml</file>
+        <file>src/qml/main.qml</file>
+        <file>src/js/NetworkInstance.js</file>
     </qresource>
 </RCC>

@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.12
 import org.kde.kirigami 2.4 as Kirigami
-import "NetworkInstance.js" as API
+import "../js/NetworkInstance.js" as API
 
 GridView {
     property var image_type
@@ -22,7 +22,7 @@ GridView {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                applicationWindow().pageStack.layers.push("qrc:/ImageViewer.qml", {"imageSource":model.url_image})
+                applicationWindow().pageStack.layers.push("qrc:/src/qml/ImageViewer.qml", {"imageSource":model.url_image})
             }
         }
     }
