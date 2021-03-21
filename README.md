@@ -1,8 +1,7 @@
 ## Wallpaper App
 
 * uses [AlphaCodersWallpaper](https://wall.alphacoders.com)
-* has download features
-
+* uses [QuickDownload](https://github.com/Larpon/QuickDownload) to Download Images
 
 ### Todo
 * Improve UI
