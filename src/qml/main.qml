@@ -18,6 +18,9 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: "Home"
                 onTriggered: {
+                    while (!main.isCurrentPage) {
+                        applicationWindow().pageStack.layers.pop()
+                    }
                     stack.currentIndex = 0
                 }
             },
@@ -25,6 +28,9 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: "Newest Wallpapers"
                 onTriggered: {
+                    while (!main.isCurrentPage) {
+                        applicationWindow().pageStack.layers.pop()
+                    }
                     stack.currentIndex = 3
                 }
             },
@@ -32,6 +38,10 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: "Featured Wallpapers"
                 onTriggered: {
+                    while (!main.isCurrentPage) {
+                        applicationWindow().pageStack.layers.pop()
+                    }
+
                     stack.currentIndex = 1
                 }
             },
@@ -39,6 +49,10 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: "Popular Wallpapers"
                 onTriggered: {
+                    while (!main.isCurrentPage) {
+                        applicationWindow().pageStack.layers.pop()
+                    }
+
                     stack.currentIndex = 2
                 }
             },
@@ -46,6 +60,9 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: "Categories"
                 onTriggered: {
+                    while (!main.isCurrentPage) {
+                        applicationWindow().pageStack.layers.pop()
+                    }
                     stack.currentIndex = 4
                 }
             }
