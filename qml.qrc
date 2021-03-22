@@ -8,5 +8,6 @@
         <file>src/qml/ImageViewer.qml</file>
         <file>src/qml/main.qml</file>
         <file>src/js/NetworkInstance.js</file>
+        <file>src/qml/SubCategoryImageList.qml</file>
     </qresource>
 </RCC>

@@ -51,3 +51,9 @@ var getCategoryWallpaper = function (id, pageNo) {
     var json_obj = JSON.parse(res)
     return json_obj.wallpapers
 }
+
+var getSubCategoryWallpaper = function (id, pageNo) {
+    var res = getUrl(website_url + "&method=sub_category&id=" + id + "&page=" + pageNo)
+    var json_obj = JSON.parse(res)
+    return json_obj.wallpapers
+}

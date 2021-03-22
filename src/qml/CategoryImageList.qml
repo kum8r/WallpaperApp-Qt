@@ -41,7 +41,10 @@ Kirigami.Page {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-
+                        applicationWindow().pageStack.layers.push(
+                                    "qrc:/src/qml/SubCategoryImageList.qml", {
+                                        "categoryid": modelData.id
+                                    })
                     }
                 }
             }

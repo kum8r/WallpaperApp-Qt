@@ -54,9 +54,11 @@ GridView {
             url_thumbs = API.getNewestImagesThumb(pageNo)
         } else if (image_type === "category") {
             url_thumbs = API.getCategoryWallpaper(categoryId, pageNo)
-            console.log("category")
-            console.log(url_thumbs)
         }
+        else if (image_type === "subcategory") {
+            url_thumbs = API.getSubCategoryWallpaper(categoryId, pageNo)
+        }
+
         gridModel.append(url_thumbs)
     }
 }
