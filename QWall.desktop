@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=QWall
+Exec=QWall
+Icon=QWall
+Categories=Utility;
+Comment=Simple Wallpaper Downloader app
