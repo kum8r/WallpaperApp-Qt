@@ -22,7 +22,7 @@ GridView {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                applicationWindow().pageStack.layers.push("qrc:/src/qml/ImageViewer.qml", {"imageSource":model.url_image})
+                applicationWindow().pageStack.layers.push("qrc:/src/qml/ImageViewer.qml", {"imageSource":model.url_image, "id":model.id})
             }
         }
     }
