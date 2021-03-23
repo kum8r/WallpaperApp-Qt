@@ -125,7 +125,6 @@ Kirigami.Page {
                              "name": "file size",
                              "value": info.file_size
                          })
-        console.log(new Date().toLocaleTimeString())
     }
 
     onBackRequested: {
