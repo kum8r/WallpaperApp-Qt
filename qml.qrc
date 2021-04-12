@@ -9,5 +9,6 @@
         <file>src/qml/main.qml</file>
         <file>src/js/NetworkInstance.js</file>
         <file>src/qml/SubCategoryImageList.qml</file>
+        <file>src/qml/SearchPage.qml</file>
     </qresource>
 </RCC>

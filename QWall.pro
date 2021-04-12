@@ -12,6 +12,7 @@ SOURCES += \
 
 RESOURCES += qml.qrc
 
+
 include(ThirdParty/QuickDownload/quickdownload.pri)
 
 # Additional import path used to resolve QML modules in Qt Creator's code model

@@ -65,6 +65,16 @@ Kirigami.ApplicationWindow {
                     }
                     stack.currentIndex = 4
                 }
+            },
+
+            Kirigami.Action {
+                text: "Search"
+                onTriggered: {
+                    while (!main.isCurrentPage) {
+                        applicationWindow().pageStack.layers.pop()
+                    }
+                    stack.currentIndex = 5
+                }
             }
         ]
     }
@@ -96,6 +106,8 @@ Kirigami.ApplicationWindow {
             }
 
             CategoryList {}
+
+            SearchPage {}
         }
     }
 }
