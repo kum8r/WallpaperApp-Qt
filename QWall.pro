@@ -21,10 +21,26 @@ QML_IMPORT_PATH =
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+
+linux {
+
+    isEmpty(PREFIX): PREFIX = /usr
+    DATADIR = $${PREFIX}/share
+
+    # install desktop file
+    desktop.path = $${DATADIR}/applications
+    desktop.files += QWall.desktop
+
+    iconpng.path = $${DATADIR}/icons/hicolor/scalable/apps
+    iconpng.files = QWall.png
+
+    # install application
+    target.path = $${PREFIX}/bin
+
+    INSTALLS += target desktop  iconpng
+    message("The project will be installed in prefix $${PREFIX}")
+
+}
 
 DISTFILES += \
     QWall.desktop \

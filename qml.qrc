@@ -11,4 +11,10 @@
         <file>src/qml/SubCategoryImageList.qml</file>
         <file>src/qml/SearchPage.qml</file>
     </qresource>
+    <qresource prefix="/icons">
+        <file>QWall.png</file>
+    </qresource>
+    <qresource prefix="/desktop">
+        <file>QWall.desktop</file>
+    </qresource>
 </RCC>

@@ -4,5 +4,6 @@ Type=Application
 Name=QWall
 Exec=QWall
 Icon=QWall
-Categories=Utility;
+Categories=Qt;Utility;
 Comment=Simple Wallpaper Downloader app
+Terminal=false

@@ -9,6 +9,12 @@ Kirigami.Page {
     property var imageSource
     property var id
 
+    ProgressBar {
+        id: imgProgress
+        value: img.progress
+        width: parent.width
+    }
+
     Image {
         id: img
         anchors.fill: parent
@@ -16,6 +22,13 @@ Kirigami.Page {
         horizontalAlignment: Image.AlignHCenter
         verticalAlignment: Image.AlignVCenter
         source: imageSource
+
+        onProgressChanged: {
+            if (img.progress == 1) {
+                imgProgress.visible = false
+            }
+        }
+
     }
 
     Rectangle {
