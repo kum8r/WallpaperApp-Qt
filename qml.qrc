@@ -10,6 +10,7 @@
         <file>src/js/NetworkInstance.js</file>
         <file>src/qml/SearchPage.qml</file>
         <file>src/qml/DownloadDialog.qml</file>
+        <file>src/qml/AboutDialog.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>QWall.png</file>

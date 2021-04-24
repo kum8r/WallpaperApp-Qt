@@ -7,6 +7,7 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QUrl>
+
 Settings::Settings(QObject *parent)
     : QObject(parent)
 {

@@ -1,6 +1,6 @@
 QT += quick
 QT += network
-CONFIG+=qtquickcompiler
+#CONFIG+=qtquickcompiler
 CONFIG += c++14
 QT += quickcontrols2
 

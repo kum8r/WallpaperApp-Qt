@@ -1,6 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Controls.Material 2.12
 import org.kde.kirigami 2.13 as Kirigami
 
 Kirigami.ApplicationWindow {
@@ -8,6 +9,22 @@ Kirigami.ApplicationWindow {
     width: 1000
     height: 700
 
+/*
+
+accent : color
+background : color
+elevation : int
+foreground : color
+primary : color
+theme : enumeration
+
+*/
+
+//    Kirigami.Theme.activeTextColor: "orange"
+Kirigami.Theme.backgroundColor: "red"
+//    Material.accent: Kirigami.Theme.highlightColor
+//    Material.background: Material.Orange
+//    Material.foreground: Material.Purple
     globalDrawer: Kirigami.GlobalDrawer {
         id: sideBar
         drawerOpen: true
@@ -88,17 +105,6 @@ Kirigami.ApplicationWindow {
                 onTriggered: downloadDialog.open()
             }
 
-            Menu {
-                title: qsTr("&Style")
-
-                Kirigami.Action {
-                    text: "Default"
-                }
-
-                Kirigami.Action {
-                    text: "Material"
-                }
-            }
 
             MenuSeparator {}
 
@@ -113,6 +119,9 @@ Kirigami.ApplicationWindow {
             title: qsTr("&Help")
             Action {
                 text: qsTr("&About")
+                onTriggered: {
+                    about.open()
+                }
             }
         }
     }
@@ -141,11 +150,13 @@ Kirigami.ApplicationWindow {
 
             HomePage {}
 
+
             ImageGridList {
                 image_type: "featured"
             }
 
             ImageGridList {
+
                 image_type: "popular"
             }
 
@@ -161,5 +172,9 @@ Kirigami.ApplicationWindow {
 
     DownloadDialog {
         id: downloadDialog
+    }
+
+    AboutDialog {
+        id: about
     }
 }
