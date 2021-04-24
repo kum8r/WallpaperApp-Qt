@@ -38,10 +38,7 @@ var getCategoryList = function () {
 
 var getSubCategoryList = function (id) {
     var res = getUrl(website_url + "&method=sub_category_list&id=" + id)
-    console.log(website_url + "&method=sub_category_list&id=" + id)
     var json_obj = JSON.parse(res)
-    console.log("somting")
-    console.log(json_obj)
     return json_obj["sub-categories"]
 }
 
@@ -53,7 +50,8 @@ var getCategoryWallpaper = function (id, pageNo) {
 }
 
 var getSubCategoryWallpaper = function (id, pageNo) {
-    var res = getUrl(website_url + "&method=sub_category&id=" + id + "&page=" + pageNo)
+    var res = getUrl(
+                website_url + "&method=sub_category&id=" + id + "&page=" + pageNo)
     var json_obj = JSON.parse(res)
     return json_obj.wallpapers
 }
@@ -65,7 +63,56 @@ var searchWallpaper = function (searchtext, pageNo) {
 }
 
 var getWallpaperInfo = function (id) {
-    var res = getUrl(website_url + "&method=wallpaper_info&id=" + id )
+    var res = getUrl(website_url + "&method=wallpaper_info&id=" + id)
     var json_obj = JSON.parse(res)
     return json_obj.wallpaper
+}
+
+WorkerScript.onMessage = function (message) {
+    var pageNo = message.pageNo
+    var imageType = message.imageType
+    var categoryId = message.categoryId
+
+    if (imageType === "popular") {
+        var popularWallpapers = getPopularImagesThumb(pageNo)
+        WorkerScript.sendMessage({
+                                     "images": popularWallpapers
+                                 })
+    } else if (imageType === "featured") {
+        var featureWallpapers = getFeaturedImagesThumb(pageNo)
+        WorkerScript.sendMessage({
+                                     "images": featureWallpapers
+                                 })
+    } else if (imageType === "newest") {
+        var newestWallpapers = getNewestImagesThumb(pageNo)
+        WorkerScript.sendMessage({
+                                     "images": newestWallpapers
+                                 })
+    } else if (imageType === "category") {
+        var categoryWallpaper = getCategoryWallpaper(categoryId, pageNo)
+        WorkerScript.sendMessage({
+                                     "images": categoryWallpaper
+                                 })
+    } else if (imageType === "subcategory") {
+        var subCategoryWallpaper = getSubCategoryWallpaper(categoryId, pageNo)
+        WorkerScript.sendMessage({
+                                     "images": subCategoryWallpaper
+                                 })
+    } else if (imageType === "categorylist") {
+        var categoryList = getCategoryList()
+        WorkerScript.sendMessage({
+                                     "list": categoryList
+                                 })
+    } else if (imageType === "subcategorylist") {
+        var subCategoryList = getSubCategoryList(categoryId)
+        WorkerScript.sendMessage({
+                                     "list": subCategoryList
+                                 })
+    } else if (imageType === "search") {
+        var searchText = message.searchText
+        var wallpaper = searchWallpaper(searchText, pageNo)
+        WorkerScript.sendMessage({
+                                     "images": wallpaper
+                                 })
+    }
 }

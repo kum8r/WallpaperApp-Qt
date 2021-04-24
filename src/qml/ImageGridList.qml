@@ -1,10 +1,9 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.12
 import org.kde.kirigami 2.4 as Kirigami
-import "../js/NetworkInstance.js" as API
 
 GridView {
-    property var image_type
+    property string image_type
     property var categoryId
     property var pageNo: 1
     id: imageGridList
@@ -14,16 +13,22 @@ GridView {
 
     ScrollBar.vertical: ScrollBar {}
 
-    delegate: Image {
+    delegate: Kirigami.AbstractListItem {
         width: 200
         height: 100
-        source: model.url_thumb
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                applicationWindow().pageStack.layers.push("qrc:/src/qml/ImageViewer.qml", {"imageSource":model.url_image, "id":model.id})
-            }
+        onDoubleClicked: {
+            applicationWindow().pageStack.layers.push(
+                        "qrc:/src/qml/ImageViewer.qml", {
+                            "imageSource": model.url_image,
+                            "id": model.id
+                        })
+        }
+
+        contentItem: Image {
+            height: 200
+            width: 100
+            source: model.url_thumb
         }
     }
 
@@ -44,21 +49,29 @@ GridView {
         }
     }
 
-    function getImages() {
-        var url_thumbs
-        if (image_type === "popular") {
-            url_thumbs = API.getPopularImagesThumb(pageNo)
-        } else if (image_type === "featured") {
-            url_thumbs = API.getFeaturedImagesThumb(pageNo)
-        } else if (image_type === "newest") {
-            url_thumbs = API.getNewestImagesThumb(pageNo)
-        } else if (image_type === "category") {
-            url_thumbs = API.getCategoryWallpaper(categoryId, pageNo)
-        }
-        else if (image_type === "subcategory") {
-            url_thumbs = API.getSubCategoryWallpaper(categoryId, pageNo)
-        }
+    WorkerScript {
+        id: imageWorker2
+        source: "qrc:/src/js/NetworkInstance.js"
 
-        gridModel.append(url_thumbs)
+        onMessage: {
+            var images = messageObject.images
+            gridModel.append(images)
+        }
+    }
+
+    function getImages() {
+        if (image_type === "popular" || image_type === "featured"
+                || image_type === "newest") {
+            imageWorker2.sendMessage({
+                                         "pageNo": pageNo,
+                                         "imageType": image_type
+                                     })
+        } else if (image_type === "category" || image_type === "subcategory") {
+            imageWorker2.sendMessage({
+                                         "pageNo": pageNo,
+                                         "imageType": image_type,
+                                         "categoryId": categoryId
+                                     })
+        }
     }
 }

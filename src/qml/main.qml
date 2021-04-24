@@ -1,7 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Controls 2.3 as Controls
 import QtQuick.Layouts 1.15
-import org.kde.kirigami 2.7 as Kirigami
+import org.kde.kirigami 2.13 as Kirigami
 
 Kirigami.ApplicationWindow {
     id: root
@@ -12,7 +12,7 @@ Kirigami.ApplicationWindow {
         id: sideBar
         drawerOpen: true
         modal: false
-        width: root.width * 0.2
+        width: root.width * 0.3
 
         actions: [
             Kirigami.Action {

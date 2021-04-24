@@ -7,85 +7,88 @@ import "../js/NetworkInstance.js" as API
 Kirigami.Page {
     property var pageNo: 1
 
-    ColumnLayout {
-        anchors.fill: parent
-        RowLayout {
+    header: Rectangle {
+        id: header
+        width: parent.width
+        height: 30
+
+        Row {
             width: parent.width
 
-            Rectangle {
-                Layout.fillWidth: true
-                border.width: 3
-                border.color: "#4b4b4b"
-                color: "lightsteelblue"
-                radius: 5
-                TextInput {
-                    id: searchBar
-                    text: "Search..."
-                    focus: true
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        text2.selectAll()
-                    }
-                }
+            TextField {
+                id: searchBar
+                placeholderText: "Search..."
+                width: parent.width - 100
             }
-
             Button {
+                id: searchBtn
                 text: "Search"
+                width: 100
                 onClicked: {
                     pageNo = 1
                     getImages()
                 }
             }
         }
+    }
 
-        GridView {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            cellHeight: 110
-            cellWidth: 210
+    GridView {
+        id: searchImageList
+        anchors.fill: parent
+        cellHeight: 110
+        cellWidth: 210
 
-            onAtYEndChanged: {
-                if (imageGridList.atYEnd) {
-                    pageNo++
-                    getImages()
-                }
+        onAtYEndChanged: {
+            if (searchImageList.atYEnd) {
+                pageNo++
+                getImages()
+            }
+        }
+
+        delegate: Kirigami.AbstractListItem {
+            width: 200
+            height: 100
+
+            onDoubleClicked: {
+                applicationWindow().pageStack.layers.push(
+                            "qrc:/src/qml/ImageViewer.qml", {
+                                "imageSource": model.url_image,
+                                "id": model.id
+                            })
             }
 
-            delegate: Kirigami.AbstractCard {
-                width: 200
-                height: 100
-
-                contentItem: Image {
-                    width: 200
-                    height: 100
-                    source: model.url_thumb
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            applicationWindow().pageStack.layers.push(
-                                        "qrc:/src/qml/ImageViewer.qml", {
-                                            "imageSource": model.url_image,
-                                            "id": model.id
-                                        })
-                        }
-                    }
-                }
+            contentItem: Image {
+                height: 200
+                width: 100
+                source: model.url_thumb
             }
+        }
 
-            model: ListModel {
-                id: searchModel
-            }
+        model: ListModel {
+            id: searchModel
+        }
+    }
+
+    WorkerScript {
+        id: imageWorker2
+        source: "qrc:/src/js/NetworkInstance.js"
+
+        onMessage: {
+            var searchText = message.searchText
+
+            var images = messageObject.images
+            searchModel.append(images)
         }
     }
 
     function getImages() {
         searchModel.clear()
-        var url_thumbs = API.searchWallpaper(searchBar.text, pageNo)
 
-        searchModel.append(url_thumbs)
+        imageWorker2.sendMessage({
+                                     "imageType": "search",
+                                     "pageNo": pageNo,
+                                     "searchText": searchBar.text
+                                 })
+
     }
 }

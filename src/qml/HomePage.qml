@@ -1,10 +1,13 @@
 import QtQuick 2.0
 import org.kde.kirigami 2.4 as Kirigami
 import QtQuick.Layouts 1.15
-import "../js/NetworkInstance.js" as API
 import QtQuick.Controls 2.4
 
 Kirigami.ScrollablePage {
+
+    property bool isNewestLoading: false
+    property bool isPopularLoading: false
+    property bool isFeaturedLoading: false
 
     title: "Home"
     anchors.fill: parent
@@ -24,11 +27,12 @@ Kirigami.ScrollablePage {
         }
 
         ImageList {
-            property var list: API.getPopularImagesThumb(1)
-            url_thumbs: list
+            id: popularImages
             Layout.fillWidth: true
 
             footer: Rectangle {
+                visible: !isPopularLoading
+                id: popularLoadMore
                 width: 150
                 height: 100
                 color: Kirigami.Theme.backgroundColor
@@ -48,6 +52,25 @@ Kirigami.ScrollablePage {
                     }
                 }
             }
+
+            WorkerScript {
+                id: popularImageWorker
+                source: "qrc:/src/js/NetworkInstance.js"
+
+                onMessage: {
+                    popularImages.url_thumbs = messageObject.images
+                    isPopularLoading = false
+                }
+            }
+
+            Component.onCompleted: {
+
+                popularImageWorker.sendMessage({
+                                                   "pageNo": 1,
+                                                   "imageType": "popular"
+                                               })
+                isPopularLoading = true
+            }
         }
 
         Kirigami.Heading {
@@ -56,11 +79,12 @@ Kirigami.ScrollablePage {
         }
 
         ImageList {
-            property var list: API.getNewestImagesThumb(1)
-            url_thumbs: list
+            id: newestImages
             Layout.fillWidth: true
 
             footer: Rectangle {
+                visible: !isNewestLoading
+                id: newestLoadMore
                 width: 150
                 height: 100
                 color: Kirigami.Theme.backgroundColor
@@ -80,6 +104,27 @@ Kirigami.ScrollablePage {
                     }
                 }
             }
+
+            WorkerScript {
+                id: newestImageWorker
+                source: "qrc:/src/js/NetworkInstance.js"
+
+                onMessage: {
+                    newestImages.url_thumbs = messageObject.images
+
+                    isNewestLoading = false
+                }
+            }
+
+            Component.onCompleted: {
+
+                newestImageWorker.sendMessage({
+                                                  "pageNo": 1,
+                                                  "imageType": "newest"
+                                              })
+
+                isNewestLoading = true
+            }
         }
 
         Kirigami.Heading {
@@ -88,11 +133,12 @@ Kirigami.ScrollablePage {
         }
 
         ImageList {
-            property var list: API.getFeaturedImagesThumb(1)
-            url_thumbs: list
+            id: featuredImages
             Layout.fillWidth: true
 
             footer: Rectangle {
+                visible: !isFeaturedLoading
+                id: featuredLoadMore
                 width: 150
                 height: 100
                 color: Kirigami.Theme.backgroundColor
@@ -112,7 +158,26 @@ Kirigami.ScrollablePage {
                     }
                 }
             }
-        }
 
+            WorkerScript {
+                id: featuredImageWorker
+                source: "qrc:/src/js/NetworkInstance.js"
+
+                onMessage: {
+                    featuredImages.url_thumbs = messageObject.images
+
+                    isFeaturedLoading = false
+                }
+            }
+
+            Component.onCompleted: {
+
+                featuredImageWorker.sendMessage({
+                                                    "pageNo": 1,
+                                                    "imageType": "featured"
+                                                })
+                isFeaturedLoading = true
+            }
+        }
     }
 }

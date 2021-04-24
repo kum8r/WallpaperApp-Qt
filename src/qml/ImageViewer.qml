@@ -55,7 +55,8 @@ Kirigami.Page {
                     anchors.verticalCenter: parent.verticalCenter
                     color: "transparent"
 
-                    Text {
+                    Kirigami.Heading {
+                        level: 4
                         width: parent.width
                         height: parent.height
                         anchors.left: parent.left
@@ -63,7 +64,6 @@ Kirigami.Page {
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
                         color: "white"
-                        font.pixelSize: 10
                         wrapMode: Text.WordWrap
                         text: model.name + ": "
                     }
@@ -74,20 +74,17 @@ Kirigami.Page {
                     height: parent.height - 4
                     anchors.left: tagName.right
                     anchors.verticalCenter: parent.verticalCenter
-                    border.width: 1
-                    border.color: "white"
                     color: "transparent"
 
-                    TextEdit {
+                    Kirigami.Heading {
+                        level: 4
                         id: valueEdit
-                        selectByMouse: true
                         width: parent.width
                         height: parent.height
                         anchors.centerIn: parent
                         horizontalAlignment: TextEdit.AlignLeft
                         verticalAlignment: TextEdit.AlignVCenter
                         color: "white"
-                        font.pixelSize: 10
 
                         text: model.value
                     }
