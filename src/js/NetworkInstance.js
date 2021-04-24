@@ -105,6 +105,7 @@ WorkerScript.onMessage = function (message) {
                                  })
     } else if (imageType === "subcategorylist") {
         var subCategoryList = getSubCategoryList(categoryId)
+        console.log(subCategoryList)
         WorkerScript.sendMessage({
                                      "list": subCategoryList
                                  })

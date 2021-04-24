@@ -25,10 +25,18 @@ Kirigami.Page {
         delegate: Kirigami.BasicListItem {
 
             onDoubleClicked: {
-                applicationWindow().pageStack.layers.push(
-                            "qrc:/src/qml/CategoryImageList.qml", {
-                                "categoryid": modelData.id
-                            })
+                if (isSubCategory) {
+                    applicationWindow().pageStack.layers.push(
+                                "qrc:/src/qml/CategoryImageList.qml", {
+                                    "categoryid": modelData.id,
+                                    "isSub": true
+                                })
+                } else {
+                    applicationWindow().pageStack.layers.push(
+                                "qrc:/src/qml/CategoryImageList.qml", {
+                                    "categoryid": modelData.id
+                                })
+                }
             }
 
             contentItem: Kirigami.Heading {
@@ -63,7 +71,7 @@ Kirigami.Page {
 
                 imageWorker2.sendMessage({
                                              "imageType": "subcategorylist",
-                                             "categoryId": categoryId
+                                             "categoryId": subCategoryId
                                          })
             }
         }

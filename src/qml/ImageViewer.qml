@@ -8,6 +8,7 @@ import "../js/NetworkInstance.js" as API
 Kirigami.Page {
     property var imageSource
     property var id
+    property string filename
 
     ProgressBar {
         id: imgProgress
@@ -28,7 +29,6 @@ Kirigami.Page {
                 imgProgress.visible = false
             }
         }
-
     }
 
     Rectangle {
@@ -102,14 +102,16 @@ Kirigami.Page {
             }
 
             footer: Button {
-                        text: "Download"
-                        onClicked: {
-                            download.start(imageSource)
-                        }
-                        anchors.left: parent.left
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: 200
-                        height: 30
+                text: "Download"
+                onClicked: {
+                    filename = settings.getFilename()
+
+                    download.start(imageSource)
+                }
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                width: 200
+                height: 30
             }
 
             delegate: infoDelegate
@@ -120,8 +122,8 @@ Kirigami.Page {
         sideBar.drawerOpen = false
         var info = API.getWallpaperInfo(id)
         infoModel.append({
-                             name: "name",
-                             value: info.name
+                             "name": "name",
+                             "value": info.name
                          })
         infoModel.append({
                              "name": "width",
@@ -143,12 +145,13 @@ Kirigami.Page {
 
     Download {
         id: download
-        destination: StandardPaths.writableLocation(
-                         StandardPaths.DownloadLocation) + "/ImageViewer -"
-                     + new Date().toLocaleTimeString() + ".jpg"
+        destination: filename
         onStarted: console.log('Started download', url)
         onError: console.error("error", errorString, url)
         onProgressChanged: console.log(url, 'progress:', progress)
-        onFinished: console.info(url, 'done')
+        onFinished: {
+            console.info(url, 'done')
+            settings.addDownloadedFiles(download.destination)
+        }
     }
 }

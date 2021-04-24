@@ -10,6 +10,7 @@ QT += quickcontrols2
 
 SOURCES += \
         src/main.cpp \
+    src/settings.cpp
 
 RESOURCES += qml.qrc
 
@@ -46,4 +47,7 @@ linux {
 DISTFILES += \
     QWall.desktop \
     QWall.png
+
+HEADERS += \
+    src/settings.h
 

@@ -1,5 +1,5 @@
 import QtQuick 2.1
-import QtQuick.Controls 2.3 as Controls
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import org.kde.kirigami 2.13 as Kirigami
 
@@ -79,10 +79,58 @@ Kirigami.ApplicationWindow {
         ]
     }
 
+    menuBar: MenuBar {
+        Menu {
+            title: qsTr("&File")
+
+            Kirigami.Action {
+                text: qsTr("&Downloads")
+                onTriggered: downloadDialog.open()
+            }
+
+            Menu {
+                title: qsTr("&Style")
+
+                Kirigami.Action {
+                    text: "Default"
+                }
+
+                Kirigami.Action {
+                    text: "Material"
+                }
+            }
+
+            MenuSeparator {}
+
+            Kirigami.Action {
+                text: qsTr("&Quit")
+                onTriggered: {
+                    Qt.quit()
+                }
+            }
+        }
+        Menu {
+            title: qsTr("&Help")
+            Action {
+                text: qsTr("&About")
+            }
+        }
+    }
+
     pageStack.initialPage: main
 
     Kirigami.Page {
         id: main
+
+        actions {
+            contextualActions: [
+                Kirigami.Action {
+                    text: "Downloads"
+                    icon.name: "download"
+                    onTriggered: downloadDialog.open()
+                }
+            ]
+        }
 
         StackLayout {
             width: parent.width
@@ -109,5 +157,9 @@ Kirigami.ApplicationWindow {
 
             SearchPage {}
         }
+    }
+
+    DownloadDialog {
+        id: downloadDialog
     }
 }

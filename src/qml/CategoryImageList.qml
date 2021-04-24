@@ -6,12 +6,13 @@ import "../js/NetworkInstance.js" as API
 
 Kirigami.Page {
     property var categoryid
+    property bool isSub: false
 
     header: Button {
+        visible: !isSub
         text: "Sub Category"
 
         onClicked: {
-
 
             applicationWindow().pageStack.layers.push(
                         "qrc:/src/qml/CategoryList.qml", {

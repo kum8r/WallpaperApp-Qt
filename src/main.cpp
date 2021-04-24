@@ -1,5 +1,7 @@
+#include "settings.h"
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include <QQuickStyle>
 
 int main(int argc, char *argv[])
@@ -9,9 +11,13 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
-    //    QQuickStyle::setStyle("Material");
+    QQuickStyle::setStyle("Material");
 
     QQmlApplicationEngine engine;
+
+    Settings settings;
+    engine.rootContext()->setContextProperty("settings", &settings);
+
     const QUrl url(QStringLiteral("qrc:/src/qml/main.qml"));
     QObject::connect(
         &engine,
@@ -22,6 +28,7 @@ int main(int argc, char *argv[])
                 QCoreApplication::exit(-1);
         },
         Qt::QueuedConnection);
+
     engine.load(url);
 
     return app.exec();

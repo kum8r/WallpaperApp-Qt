@@ -8,8 +8,8 @@
         <file>src/qml/ImageViewer.qml</file>
         <file>src/qml/main.qml</file>
         <file>src/js/NetworkInstance.js</file>
-        <file>src/qml/SubCategoryImageList.qml</file>
         <file>src/qml/SearchPage.qml</file>
+        <file>src/qml/DownloadDialog.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>QWall.png</file>

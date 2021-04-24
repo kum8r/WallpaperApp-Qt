@@ -13,6 +13,7 @@ GridView {
 
     ScrollBar.vertical: ScrollBar {}
 
+
     delegate: Kirigami.AbstractListItem {
         width: 200
         height: 100
